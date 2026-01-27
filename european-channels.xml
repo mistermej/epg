@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channels>
+  <!-- Netherlands - Major Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO1.nl">NPO 1</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO2.nl">NPO 2</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO3.nl">NPO 3</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL4.nl">RTL 4</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL5.nl">RTL 5</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL7.nl">RTL 7</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL8.nl">RTL 8</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="SBS6.nl">SBS6</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Net5.nl">Net5</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Veronica.nl">Veronica</channel>
+  
+  <!-- Netherlands - Sports Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN1.nl">ESPN</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN2.nl">ESPN 2</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN3.nl">ESPN 3</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN4.nl">ESPN 4</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportSelect.nl">Ziggo Sport Select</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportVoetbal.nl">Ziggo Sport Voetbal</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportRacing.nl">Ziggo Sport Racing</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportGolf.nl">Ziggo Sport Golf</channel>
+  
+  <!-- Netherlands - Movie Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Premiere.nl">Film1 Premiere</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Action.nl">Film1 Action</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Family.nl">Film1 Family</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Drama.nl">Film1 Drama</channel>
+  
+  <!-- UK - Major Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="BBCOne.uk">BBC One</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BBCTwo.uk">BBC Two</channel>
+  <channel site="sky.com" lang="en" xmltv_id="ITV1.uk">ITV1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="Channel4.uk">Channel 4</channel>
+  <channel site="sky.com" lang="en" xmltv_id="Channel5.uk">Channel 5</channel>
+  
+  <!-- UK - Sports Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsMainEvent.uk">Sky Sports Main Event</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsPremierLeague.uk">Sky Sports Premier League</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsFootball.uk">Sky Sports Football</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsCricket.uk">Sky Sports Cricket</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsGolf.uk">Sky Sports Golf</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsF1.uk">Sky Sports F1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsActionUK.uk">Sky Sports Action</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsArena.uk">Sky Sports Arena</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport1.uk">TNT Sports 1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport2.uk">TNT Sports 2</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport3.uk">TNT Sports 3</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSportESPN.uk">TNT Sports 4</channel>
+  
+  <!-- UK - Movie Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaPremiereUK.uk">Sky Cinema Premiere</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaHitsUK.uk">Sky Cinema Hits</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaGreatsUK.uk">Sky Cinema Greats</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaAction.uk">Sky Cinema Action</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaComedy.uk">Sky Cinema Comedy</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaDrama.uk">Sky Cinema Drama</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaFamily.uk">Sky Cinema Family</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaThriller.uk">Sky Cinema Thriller</channel>
+  
+  <!-- Germany - Major Channels -->
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DasErste.de">Das Erste</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="ZDF.de">ZDF</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="RTL.de">RTL</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="Sat1.de">SAT.1</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="ProSieben.de">ProSieben</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="VOX.de">VOX</channel>
+  
+  <!-- Germany - Sports Channels -->
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DAZN1.de">DAZN 1</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DAZN2.de">DAZN 2</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="SportdigitalFussball.de">Sportdigital Fußball</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="Sky Sport News.de">Sky Sport News</channel>
+  
+  <!-- France - Major Channels -->
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="TF1.fr">TF1</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="France2.fr">France 2</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="France3.fr">France 3</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="M6.fr">M6</channel>
+  
+  <!-- Belgium - Major Channels -->
+  <channel site="telenettv.be" lang="nl" xmltv_id="Een.be">één</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Canvas.be">Canvas</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VTM.be">VTM</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VIER.be">VIER</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VIJF.be">VIJF</channel>
+  
+  <!-- Belgium - Sports -->
+  <channel site="telenettv.be" lang="nl" xmltv_id="VTMGo.be">VTM GO</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Eleven Sports 1.be">Eleven Sports 1</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Eleven Sports 2.be">Eleven Sports 2</channel>
+  
+  <!-- Spain - Major Channels -->
+  <channel site="movistarplus.es" lang="es" xmltv_id="La1.es">La 1</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="La2.es">La 2</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Antena3.es">Antena 3</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Cuatro.es">Cuatro</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Telecinco.es">Telecinco</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="laSexta.es">laSexta</channel>
+  
+  <!-- Spain - Sports -->
+  <channel site="movistarplus.es" lang="es" xmltv_id="MovistarLaLiga.es">M+ LaLiga</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="DAZNLaLiga.es">DAZN LaLiga</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="DAZNLaLiga2.es">DAZN LaLiga 2</channel>
+  
+  <!-- Italy - Major Channels -->
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai1.it">Rai 1</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai2.it">Rai 2</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai3.it">Rai 3</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Canale5.it">Canale 5</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Italia1.it">Italia 1</channel>
+  
+  <!-- Italy - Sports -->
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportUno.it">Sky Sport Uno</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportCalcio.it">Sky Sport Calcio</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportSerieA.it">Sky Sport Serie A</channel>
+  
+  <!-- Nordic - Viaplay Channels -->
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViaplayMovies.se">Viaplay Movies</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmPremiere.se">Viasat Film Premiere</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmAction.se">Viasat Film Action</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmFamily.se">Viasat Film Family</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmHits.se">Viasat Film Hits</channel>
+  
+  <!-- International Sports -->
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports1.us">beIN SPORTS</channel>
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports2.us">beIN SPORTS 2</channel>
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports3.us">beIN SPORTS 3</channel>
+  
+  <!-- Premium Movie Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="StarzCinema.uk">STARZ</channel>
+  <channel site="sky.com" lang="en" xmltv_id="TCMMovies.uk">TCM</channel>
+  
+  <!-- Discovery & Entertainment -->
+  <channel site="sky.com" lang="en" xmltv_id="DiscoveryChannelUK.uk">Discovery Channel</channel>
+  <channel site="sky.com" lang="en" xmltv_id="NatGeoWildUK.uk">Nat Geo Wild</channel>
+  <channel site="sky.com" lang="en" xmltv_id="HistoryChannelUK.uk">History</channel>
+  
+</channels>
+EOF
+cat european-channels.xml
+Output
+
+<?xml version="1.0" encoding="UTF-8"?>
+<channels>
+  <!-- Netherlands - Major Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO1.nl">NPO 1</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO2.nl">NPO 2</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="NPO3.nl">NPO 3</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL4.nl">RTL 4</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL5.nl">RTL 5</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL7.nl">RTL 7</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="RTL8.nl">RTL 8</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="SBS6.nl">SBS6</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Net5.nl">Net5</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Veronica.nl">Veronica</channel>
+  
+  <!-- Netherlands - Sports Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN1.nl">ESPN</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN2.nl">ESPN 2</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN3.nl">ESPN 3</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ESPN4.nl">ESPN 4</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportSelect.nl">Ziggo Sport Select</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportVoetbal.nl">Ziggo Sport Voetbal</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportRacing.nl">Ziggo Sport Racing</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="ZiggoSportGolf.nl">Ziggo Sport Golf</channel>
+  
+  <!-- Netherlands - Movie Channels -->
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Premiere.nl">Film1 Premiere</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Action.nl">Film1 Action</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Family.nl">Film1 Family</channel>
+  <channel site="delta.nl" lang="nl" xmltv_id="Film1Drama.nl">Film1 Drama</channel>
+  
+  <!-- UK - Major Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="BBCOne.uk">BBC One</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BBCTwo.uk">BBC Two</channel>
+  <channel site="sky.com" lang="en" xmltv_id="ITV1.uk">ITV1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="Channel4.uk">Channel 4</channel>
+  <channel site="sky.com" lang="en" xmltv_id="Channel5.uk">Channel 5</channel>
+  
+  <!-- UK - Sports Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsMainEvent.uk">Sky Sports Main Event</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsPremierLeague.uk">Sky Sports Premier League</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsFootball.uk">Sky Sports Football</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsCricket.uk">Sky Sports Cricket</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsGolf.uk">Sky Sports Golf</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsF1.uk">Sky Sports F1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsActionUK.uk">Sky Sports Action</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkySportsArena.uk">Sky Sports Arena</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport1.uk">TNT Sports 1</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport2.uk">TNT Sports 2</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSport3.uk">TNT Sports 3</channel>
+  <channel site="sky.com" lang="en" xmltv_id="BTSportESPN.uk">TNT Sports 4</channel>
+  
+  <!-- UK - Movie Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaPremiereUK.uk">Sky Cinema Premiere</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaHitsUK.uk">Sky Cinema Hits</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaGreatsUK.uk">Sky Cinema Greats</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaAction.uk">Sky Cinema Action</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaComedy.uk">Sky Cinema Comedy</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaDrama.uk">Sky Cinema Drama</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaFamily.uk">Sky Cinema Family</channel>
+  <channel site="sky.com" lang="en" xmltv_id="SkyCinemaThriller.uk">Sky Cinema Thriller</channel>
+  
+  <!-- Germany - Major Channels -->
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DasErste.de">Das Erste</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="ZDF.de">ZDF</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="RTL.de">RTL</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="Sat1.de">SAT.1</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="ProSieben.de">ProSieben</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="VOX.de">VOX</channel>
+  
+  <!-- Germany - Sports Channels -->
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DAZN1.de">DAZN 1</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="DAZN2.de">DAZN 2</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="SportdigitalFussball.de">Sportdigital Fußball</channel>
+  <channel site="tvspielfilm.de" lang="de" xmltv_id="Sky Sport News.de">Sky Sport News</channel>
+  
+  <!-- France - Major Channels -->
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="TF1.fr">TF1</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="France2.fr">France 2</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="France3.fr">France 3</channel>
+  <channel site="telecablesat.fr" lang="fr" xmltv_id="M6.fr">M6</channel>
+  
+  <!-- Belgium - Major Channels -->
+  <channel site="telenettv.be" lang="nl" xmltv_id="Een.be">één</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Canvas.be">Canvas</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VTM.be">VTM</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VIER.be">VIER</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="VIJF.be">VIJF</channel>
+  
+  <!-- Belgium - Sports -->
+  <channel site="telenettv.be" lang="nl" xmltv_id="VTMGo.be">VTM GO</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Eleven Sports 1.be">Eleven Sports 1</channel>
+  <channel site="telenettv.be" lang="nl" xmltv_id="Eleven Sports 2.be">Eleven Sports 2</channel>
+  
+  <!-- Spain - Major Channels -->
+  <channel site="movistarplus.es" lang="es" xmltv_id="La1.es">La 1</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="La2.es">La 2</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Antena3.es">Antena 3</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Cuatro.es">Cuatro</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="Telecinco.es">Telecinco</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="laSexta.es">laSexta</channel>
+  
+  <!-- Spain - Sports -->
+  <channel site="movistarplus.es" lang="es" xmltv_id="MovistarLaLiga.es">M+ LaLiga</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="DAZNLaLiga.es">DAZN LaLiga</channel>
+  <channel site="movistarplus.es" lang="es" xmltv_id="DAZNLaLiga2.es">DAZN LaLiga 2</channel>
+  
+  <!-- Italy - Major Channels -->
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai1.it">Rai 1</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai2.it">Rai 2</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Rai3.it">Rai 3</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Canale5.it">Canale 5</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="Italia1.it">Italia 1</channel>
+  
+  <!-- Italy - Sports -->
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportUno.it">Sky Sport Uno</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportCalcio.it">Sky Sport Calcio</channel>
+  <channel site="guidatv.sky.it" lang="it" xmltv_id="SkySportSerieA.it">Sky Sport Serie A</channel>
+  
+  <!-- Nordic - Viaplay Channels -->
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViaplayMovies.se">Viaplay Movies</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmPremiere.se">Viasat Film Premiere</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmAction.se">Viasat Film Action</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmFamily.se">Viasat Film Family</channel>
+  <channel site="viaplay.se" lang="sv" xmltv_id="ViasatFilmHits.se">Viasat Film Hits</channel>
+  
+  <!-- International Sports -->
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports1.us">beIN SPORTS</channel>
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports2.us">beIN SPORTS 2</channel>
+  <channel site="beinsports.com" lang="en" xmltv_id="beINSports3.us">beIN SPORTS 3</channel>
+  
+  <!-- Premium Movie Channels -->
+  <channel site="sky.com" lang="en" xmltv_id="StarzCinema.uk">STARZ</channel>
+  <channel site="sky.com" lang="en" xmltv_id="TCMMovies.uk">TCM</channel>
+  
+  <!-- Discovery & Entertainment -->
+  <channel site="sky.com" lang="en" xmltv_id="DiscoveryChannelUK.uk">Discovery Channel</channel>
+  <channel site="sky.com" lang="en" xmltv_id="NatGeoWildUK.uk">Nat Geo Wild</channel>
+  <channel site="sky.com" lang="en" xmltv_id="HistoryChannelUK.uk">History</channel>
+  
+</channels>
