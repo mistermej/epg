@@ -1,13 +1,12 @@
-name: Update European EPG
+name: Smart EPG Generator - Multi-Source
 
 on:
   schedule:
-    # Run daily at 2 AM UTC
-    - cron: '0 2 * * *'
-  workflow_dispatch:  # Allow manual trigger
+    - cron: '0 3 * * *'  # Daily at 3 AM UTC
+  workflow_dispatch:
 
 jobs:
-  update-epg:
+  generate-smart-epg:
     runs-on: ubuntu-latest
     
     steps:
@@ -19,36 +18,295 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Download European channels EPG
+      - name: Download and merge EPGShare01 (Primary Source)
         run: |
-          # Grab EPG data using the custom channels.xml
-          npm run grab -- --channels=european-channels.xml --days=3 --maxConnections=5 --gzip
+          echo "📥 Downloading EPGShare01 comprehensive EPG..."
+          wget -O epgshare.xml.gz https://epgshare01.online/epgshare01/epg_ripper_ALL_SOURCES1.xml.gz
+          
+          if [ -f epgshare.xml.gz ]; then
+            echo "✅ Downloaded EPGShare01 successfully"
+            gunzip -c epgshare.xml.gz > epgshare.xml
+            
+            # Get stats
+            CHANNELS=$(grep -c '<channel' epgshare.xml || echo "0")
+            PROGRAMMES=$(grep -c '<programme' epgshare.xml || echo "0")
+            echo "📊 EPGShare01 Stats: $CHANNELS channels, $PROGRAMMES programmes"
+          else
+            echo "❌ Failed to download EPGShare01"
+          fi
       
-      - name: Verify generated files
+      - name: Clone iptv-org/epg for additional sources
         run: |
-          echo "Generated files:"
-          ls -lh guide.xml* || echo "No guide files found"
+          echo "📥 Cloning iptv-org/epg repository..."
+          git clone --depth 1 https://github.com/iptv-org/epg.git iptv-epg-repo
+          cd iptv-epg-repo
+          npm install
+      
+      - name: Generate comprehensive channels list
+        run: |
+          echo "🔍 Auto-discovering all available European channels from iptv-org..."
+          
+          cd iptv-epg-repo
+          
+          # Create a comprehensive channels file from all European sites
+          cat > ../auto-channels.xml << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <channels>
+          EOF
+          
+          # Add all channels from sites directory for European countries
+          # This will be expanded by the actual channel discovery
+          
+          # Netherlands
+          if [ -d "sites/delta.nl" ]; then
+            echo "  <!-- Netherlands - delta.nl -->" >> ../auto-channels.xml
+            find sites/delta.nl/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # UK
+          if [ -d "sites/sky.com" ]; then
+            echo "  <!-- UK - sky.com -->" >> ../auto-channels.xml
+            find sites/sky.com/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Germany
+          if [ -d "sites/tvspielfilm.de" ]; then
+            echo "  <!-- Germany - tvspielfilm.de -->" >> ../auto-channels.xml
+            find sites/tvspielfilm.de/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # France
+          if [ -d "sites/telecablesat.fr" ]; then
+            echo "  <!-- France - telecablesat.fr -->" >> ../auto-channels.xml
+            find sites/telecablesat.fr/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Spain
+          if [ -d "sites/movistarplus.es" ]; then
+            echo "  <!-- Spain - movistarplus.es -->" >> ../auto-channels.xml
+            find sites/movistarplus.es/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Italy
+          if [ -d "sites/guidatv.sky.it" ]; then
+            echo "  <!-- Italy - guidatv.sky.it -->" >> ../auto-channels.xml
+            find sites/guidatv.sky.it/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Belgium
+          if [ -d "sites/telenettv.be" ]; then
+            echo "  <!-- Belgium - telenettv.be -->" >> ../auto-channels.xml
+            find sites/telenettv.be/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Portugal
+          if [ -d "sites/meo.pt" ]; then
+            echo "  <!-- Portugal - meo.pt -->" >> ../auto-channels.xml
+            find sites/meo.pt/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Sweden
+          if [ -d "sites/viaplay.se" ]; then
+            echo "  <!-- Sweden - viaplay.se -->" >> ../auto-channels.xml
+            find sites/viaplay.se/channels -name "*.xml" -exec cat {} \; | grep '<channel' >> ../auto-channels.xml 2>/dev/null || true
+          fi
+          
+          # Close XML
+          echo "</channels>" >> ../auto-channels.xml
+          
+          cd ..
+          echo "✅ Auto-generated channels list created"
+      
+      - name: Generate additional EPG from iptv-org
+        run: |
+          echo "📥 Generating EPG from iptv-org sources..."
+          cd iptv-epg-repo
+          
+          # Only grab if we have custom channels
+          if [ -f ../auto-channels.xml ] && [ -s ../auto-channels.xml ]; then
+            npm run grab -- --channels=../auto-channels.xml --days=3 --maxConnections=10 --output=../iptv-org-epg.xml || true
+          fi
+          
+          cd ..
+          
+          if [ -f iptv-org-epg.xml ]; then
+            CHANNELS=$(grep -c '<channel' iptv-org-epg.xml || echo "0")
+            PROGRAMMES=$(grep -c '<programme' iptv-org-epg.xml || echo "0")
+            echo "📊 iptv-org EPG Stats: $CHANNELS channels, $PROGRAMMES programmes"
+          fi
+      
+      - name: Merge EPG sources intelligently
+        run: |
+          echo "🔄 Merging EPG sources..."
+          
+          # Install xmlstarlet for XML processing
+          sudo apt-get update && sudo apt-get install -y xmlstarlet
+          
+          # Create merge script
+          cat > merge-epg.py << 'PYTHON'
+          import xml.etree.ElementTree as ET
+          import sys
+          from datetime import datetime
+          
+          def merge_epg_files(primary_file, secondary_file, output_file):
+              """Merge two EPG files, preferring primary source but adding missing channels from secondary"""
+              
+              print("🔄 Starting EPG merge...")
+              
+              # Parse primary EPG (epgshare01)
+              try:
+                  primary_tree = ET.parse(primary_file)
+                  primary_root = primary_tree.getroot()
+                  print(f"✅ Loaded primary EPG: {primary_file}")
+              except:
+                  print(f"❌ Could not load {primary_file}, using empty base")
+                  primary_root = ET.Element('tv')
+                  primary_root.set('date', datetime.now().strftime('%Y%m%d'))
+              
+              # Parse secondary EPG (iptv-org)
+              try:
+                  secondary_tree = ET.parse(secondary_file)
+                  secondary_root = secondary_tree.getroot()
+                  print(f"✅ Loaded secondary EPG: {secondary_file}")
+              except:
+                  print(f"⚠️  Could not load {secondary_file}, skipping merge")
+                  # Just save primary
+                  tree = ET.ElementTree(primary_root)
+                  tree.write(output_file, encoding='UTF-8', xml_declaration=True)
+                  return
+              
+              # Get all channel IDs from primary
+              primary_channel_ids = set()
+              for channel in primary_root.findall('channel'):
+                  channel_id = channel.get('id')
+                  if channel_id:
+                      primary_channel_ids.add(channel_id)
+              
+              print(f"📊 Primary source has {len(primary_channel_ids)} channels")
+              
+              # Add missing channels and programmes from secondary
+              added_channels = 0
+              added_programmes = 0
+              
+              for channel in secondary_root.findall('channel'):
+                  channel_id = channel.get('id')
+                  if channel_id and channel_id not in primary_channel_ids:
+                      primary_root.append(channel)
+                      primary_channel_ids.add(channel_id)
+                      added_channels += 1
+              
+              # Add programmes for all channels
+              secondary_programmes = {}
+              for programme in secondary_root.findall('programme'):
+                  channel_id = programme.get('channel')
+                  if channel_id:
+                      if channel_id not in secondary_programmes:
+                          secondary_programmes[channel_id] = []
+                      secondary_programmes[channel_id].append(programme)
+              
+              primary_programme_keys = set()
+              for programme in primary_root.findall('programme'):
+                  key = f"{programme.get('channel')}_{programme.get('start')}_{programme.get('stop')}"
+                  primary_programme_keys.add(key)
+              
+              for channel_id, programmes in secondary_programmes.items():
+                  for programme in programmes:
+                      key = f"{programme.get('channel')}_{programme.get('start')}_{programme.get('stop')}"
+                      if key not in primary_programme_keys:
+                          primary_root.append(programme)
+                          primary_programme_keys.add(key)
+                          added_programmes += 1
+              
+              print(f"✨ Added {added_channels} new channels")
+              print(f"✨ Added {added_programmes} new programmes")
+              
+              # Write merged EPG
+              tree = ET.ElementTree(primary_root)
+              tree.write(output_file, encoding='UTF-8', xml_declaration=True)
+              
+              # Final stats
+              total_channels = len(primary_root.findall('channel'))
+              total_programmes = len(primary_root.findall('programme'))
+              print(f"📊 Final EPG: {total_channels} channels, {total_programmes} programmes")
+          
+          if __name__ == '__main__':
+              merge_epg_files('epgshare.xml', 'iptv-org-epg.xml', 'guide.xml')
+          PYTHON
+          
+          # Run merge
+          python3 merge-epg.py
+          
+          # Create compressed version
+          gzip -c guide.xml > guide.xml.gz
+          
+          echo "✅ EPG merge complete"
+      
+      - name: Generate EPG statistics
+        run: |
+          echo "📊 Generating EPG statistics..."
           
           if [ -f guide.xml ]; then
-            echo "EPG file size: $(stat -f%z guide.xml 2>/dev/null || stat -c%s guide.xml)"
-            echo "Number of channels: $(grep -c '<channel' guide.xml)"
-            echo "Number of programmes: $(grep -c '<programme' guide.xml)"
+            TOTAL_CHANNELS=$(grep -c '<channel' guide.xml || echo "0")
+            TOTAL_PROGRAMMES=$(grep -c '<programme' guide.xml || echo "0")
+            FILE_SIZE=$(stat -f%z guide.xml 2>/dev/null || stat -c%s guide.xml)
+            GZ_SIZE=$(stat -f%z guide.xml.gz 2>/dev/null || stat -c%s guide.xml.gz)
+            
+            cat > EPG_STATS.md << EOF
+          # 📺 EPG Statistics
+          
+          **Last Updated:** $(date -u '+%Y-%m-%d %H:%M UTC')
+          
+          ## 📊 Overview
+          - **Total Channels:** $TOTAL_CHANNELS
+          - **Total Programmes:** $TOTAL_PROGRAMMES
+          - **File Size (XML):** $(echo "scale=2; $FILE_SIZE / 1024 / 1024" | bc) MB
+          - **File Size (GZ):** $(echo "scale=2; $GZ_SIZE / 1024 / 1024" | bc) MB
+          - **Compression Ratio:** $(echo "scale=1; $FILE_SIZE / $GZ_SIZE" | bc)x
+          
+          ## 🌍 Sources
+          1. **EPGShare01** - Primary comprehensive source
+          2. **iptv-org/epg** - Additional European channels
+          
+          ## 📥 Usage
+          
+          ### Raw XML
+          \`\`\`
+          https://raw.githubusercontent.com/YOUR-USERNAME/epg/master/guide.xml
+          \`\`\`
+          
+          ### Compressed (Recommended)
+          \`\`\`
+          https://raw.githubusercontent.com/YOUR-USERNAME/epg/master/guide.xml.gz
+          \`\`\`
+          
+          ---
+          *Auto-generated by Smart EPG Generator*
+          EOF
+            
+            echo "✅ Statistics generated"
+            cat EPG_STATS.md
           fi
       
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add guide.xml* || true
           
+          # Add generated files
+          git add guide.xml guide.xml.gz EPG_STATS.md 2>/dev/null || true
+          
+          # Check if there are changes
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "ℹ️  No changes to commit"
           else
-            git commit -m "Update EPG - $(date +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "🤖 Auto-update EPG - $(date +'%Y-%m-%d %H:%M UTC')
+            
+            📊 Smart merge from multiple sources
+            - EPGShare01 (primary)
+            - iptv-org/epg (supplementary)
+            "
             git push
+            echo "✅ Changes pushed successfully"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
