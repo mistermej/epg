@@ -1,6 +1,6 @@
 # 📺 EPG Statistics
 
-**Last Updated:** 2026-01-27 22:17 UTC
+**Last Updated:** 2026-01-27 22:21 UTC
 
 ## 📊 Overview
 - **Total Channels:** 24703
@@ -17,12 +17,12 @@
 
 ### Raw XML
 ```
-https://raw.githubusercontent.com/YOUR-USERNAME/epg/master/guide.xml
+https://raw.githubusercontent.com/mistermej/epg/master/guide.xml
 ```
 
 ### Compressed (Recommended)
 ```
-https://raw.githubusercontent.com/YOUR-USERNAME/epg/master/guide.xml.gz
+https://raw.githubusercontent.com/mistermej/epg/master/guide.xml.gz
 ```
 
 ---
