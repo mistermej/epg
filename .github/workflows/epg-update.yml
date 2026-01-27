@@ -1,0 +1,112 @@
+name: Update European EPG
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-epg:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Download European channels EPG
+        run: |
+          # Grab EPG data using the custom channels.xml
+          npm run grab -- --channels=european-channels.xml --days=3 --maxConnections=5 --gzip
+      
+      - name: Verify generated files
+        run: |
+          echo "Generated files:"
+          ls -lh guide.xml* || echo "No guide files found"
+          
+          if [ -f guide.xml ]; then
+            echo "EPG file size: $(stat -f%z guide.xml 2>/dev/null || stat -c%s guide.xml)"
+            echo "Number of channels: $(grep -c '<channel' guide.xml)"
+            echo "Number of programmes: $(grep -c '<programme' guide.xml)"
+          fi
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add guide.xml* || true
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update EPG - $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+EOF
+cat .github/workflows/epg-update.yml
+Output
+
+name: Update European EPG
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-epg:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Download European channels EPG
+        run: |
+          # Grab EPG data using the custom channels.xml
+          npm run grab -- --channels=european-channels.xml --days=3 --maxConnections=5 --gzip
+      
+      - name: Verify generated files
+        run: |
+          echo "Generated files:"
+          ls -lh guide.xml* || echo "No guide files found"
+          
+          if [ -f guide.xml ]; then
+            echo "EPG file size: $(stat -f%z guide.xml 2>/dev/null || stat -c%s guide.xml)"
+            echo "Number of channels: $(grep -c '<channel' guide.xml)"
+            echo "Number of programmes: $(grep -c '<programme' guide.xml)"
+          fi
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add guide.xml* || true
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update EPG - $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
