@@ -2,7 +2,7 @@ name: Auto-update EPG
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"   # hourly
   workflow_dispatch:
 
 concurrency:
@@ -24,47 +24,80 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: Fetch and merge EPG sources
+      - name: Download EPG sources
         run: |
           set +e
-          echo "🔄 Starting EPG merge..."
+          echo "🔄 Starting EPG sync..."
 
+          mkdir -p sources
           SUCCESS=0
 
-          # ---- SOURCE 1 ----
-          if curl -fsSL https://example.com/epgshare.xml -o epgshare.xml; then
-            echo "✅ Loaded epgshare.xml"
-            SUCCESS=$((SUCCESS+1))
+          # -----------------------------
+          # 1️⃣ IPTV-ORG: all site XMLs
+          # -----------------------------
+          echo "📡 Fetching iptv-org site EPGs..."
+
+          SITE_LIST=$(curl -fsSL \
+            https://api.github.com/repos/iptv-org/epg/contents/sites \
+            | jq -r '.[] | select(.name | endswith(".xml")) | .download_url')
+
+          if [ -n "$SITE_LIST" ]; then
+            for url in $SITE_LIST; do
+              file="sources/iptv-org-$(basename "$url")"
+              if curl -fsSL "$url" -o "$file"; then
+                echo "✅ $(basename "$file")"
+                SUCCESS=$((SUCCESS+1))
+              fi
+            done
           else
-            echo "⚠️  Could not load epgshare.xml, skipping"
-            rm -f epgshare.xml
+            echo "⚠️  Could not retrieve iptv-org site list"
           fi
 
-          # ---- SOURCE 2 ----
-          if curl -fsSL https://example.com/iptv-org-epg.xml -o iptv-org-epg.xml; then
-            echo "✅ Loaded iptv-org-epg.xml"
+          # --------------------------------------
+          # 2️⃣ EPGSHARE master (gzipped)
+          # --------------------------------------
+          echo "📦 Fetching epgshare master feed..."
+
+          if curl -fsSL https://epgshare01.online/epgshare01/epg_ripper_ALL_SOURCES1.xml.gz -o sources/epgshare.xml.gz; then
+            gunzip -f sources/epgshare.xml.gz
+            echo "✅ epgshare.xml"
             SUCCESS=$((SUCCESS+1))
           else
-            echo "⚠️  Could not load iptv-org-epg.xml, skipping"
-            rm -f iptv-org-epg.xml
+            echo "⚠️  Could not load epgshare master feed"
+            rm -f sources/epgshare.xml.gz
           fi
 
-          # ---- NOTHING LOADED: EXIT CLEANLY ----
+          # -----------------------------
+          # Nothing downloaded
+          # -----------------------------
           if [ "$SUCCESS" -eq 0 ]; then
-            echo "🟡 No EPG sources available — nothing to update"
+            echo "🟡 No EPG sources available — exiting cleanly"
             exit 0
           fi
 
-          # ---- MERGE LOGIC ----
-          # Replace with your real merge step
-          # Example:
-          # python merge_epg.py *.xml > epg.xml
+          echo "✅ Sources downloaded: $SUCCESS"
 
-          echo "✅ EPG merge complete (sources loaded: $SUCCESS)"
+      - name: Merge EPG XMLs
+        run: |
+          echo "🔧 Merging EPG files..."
+
+          # Example merge using xmlstarlet (simple concat under <tv>)
+          sudo apt-get update -qq
+          sudo apt-get install -y xmlstarlet
+
+          echo '<tv>' > epg.xml
+
+          for f in sources/*.xml; do
+            xmlstarlet sel -t -c "/tv/*" "$f" >> epg.xml || true
+          done
+
+          echo '</tv>' >> epg.xml
+
+          echo "✅ EPG merge complete"
 
       - name: Commit changes
         run: |
-          git add .
+          git add epg.xml
           git commit -m "🤖 Auto-update EPG - $(date -u '+%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
 
       - name: Rebase and push
