@@ -2,10 +2,9 @@ name: Auto-update EPG
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # every 30 minutes (adjust if needed)
+    - cron: "*/30 * * * *"   # adjust as needed
   workflow_dispatch:
 
-# Prevent overlapping runs from pushing at the same time
 concurrency:
   group: epg-update
   cancel-in-progress: false
@@ -18,40 +17,50 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # REQUIRED for rebase
+          fetch-depth: 0   # required for git pull --rebase
 
       - name: Set up Git identity
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: Fetch EPG sources
+      - name: Fetch and merge EPG sources
         run: |
           set +e
-
           echo "🔄 Starting EPG merge..."
 
-          # Primary source (required)
+          SUCCESS=0
+
+          # ---- EPG SOURCE 1 ----
           if curl -fsSL https://example.com/epgshare.xml -o epgshare.xml; then
-            echo "✅ Loaded primary EPG: epgshare.xml"
+            echo "✅ Loaded epgshare.xml"
+            SUCCESS=$((SUCCESS+1))
           else
-            echo "❌ Failed to load primary EPG"
-            exit 1
+            echo "⚠️  Could not load epgshare.xml, skipping"
+            rm -f epgshare.xml
           fi
 
-          # Optional secondary source
+          # ---- EPG SOURCE 2 ----
           if curl -fsSL https://example.com/iptv-org-epg.xml -o iptv-org-epg.xml; then
             echo "✅ Loaded iptv-org-epg.xml"
+            SUCCESS=$((SUCCESS+1))
           else
-            echo "⚠️  Could not load iptv-org-epg.xml, skipping merge"
+            echo "⚠️  Could not load iptv-org-epg.xml, skipping"
             rm -f iptv-org-epg.xml
           fi
 
-          # Your merge script / logic goes here
-          # Example:
-          # python merge_epg.py epgshare.xml iptv-org-epg.xml > epg.xml
+          # ---- FAIL ONLY IF NOTHING WORKED ----
+          if [ "$SUCCESS" -eq 0 ]; then
+            echo "❌ No EPG sources could be loaded"
+            exit 1
+          fi
 
-          echo "✅ EPG merge complete"
+          # ---- MERGE LOGIC ----
+          # Replace this with your real merge script
+          # Example:
+          # python merge_epg.py *.xml > epg.xml
+
+          echo "✅ EPG merge complete (sources loaded: $SUCCESS)"
 
       - name: Commit changes
         run: |
