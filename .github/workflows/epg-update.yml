@@ -90,3 +90,7 @@ jobs:
           echo '</tv>' >> "$OUTPUT"
 
           echo "✅ EPG merge complete"
+- name: Debug EPG file
+  run: |
+    ls -lh epg.xml
+    file epg.xml
