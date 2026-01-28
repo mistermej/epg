@@ -1,12 +1,12 @@
 # 📺 EPG Statistics
 
-**Last Updated:** 2026-01-27 22:21 UTC
+**Last Updated:** 2026-01-28 04:04 UTC
 
 ## 📊 Overview
 - **Total Channels:** 24703
-- **Total Programmes:** 2534695
-- **File Size (XML):** 1670.83 MB
-- **File Size (GZ):** 173.29 MB
+- **Total Programmes:** 2535761
+- **File Size (XML):** 1667.37 MB
+- **File Size (GZ):** 173.14 MB
 - **Compression Ratio:** 9.6x
 
 ## 🌍 Sources
