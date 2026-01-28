@@ -70,10 +70,23 @@ jobs:
           echo "✅ Sources downloaded: $SUCCESS"
 
       - name: Merge EPG XMLs
+        shell: bash
         run: |
+          set -e
           echo "🔧 Merging EPG files..."
 
-          echo '<?xml version="1.0" encoding="UTF-8"?>' > epg.xml
-          echo '<tv>' >> epg.xml
+          OUTPUT="epg.xml"
 
-          for f
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > "$OUTPUT"
+          echo '<tv>' >> "$OUTPUT"
+
+          for f in sources/*.xml; do
+            if [ -f "$f" ]; then
+              echo "➕ Merging $f"
+              xmllint --xpath '/tv/*' "$f" 2>/dev/null >> "$OUTPUT" || true
+            fi
+          done
+
+          echo '</tv>' >> "$OUTPUT"
+
+          echo "✅ EPG merge complete"
