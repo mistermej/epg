@@ -2,7 +2,7 @@ name: Auto-update EPG
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # adjust as needed
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # required for git pull --rebase
+          fetch-depth: 0
 
       - name: Set up Git identity
         run: |
@@ -31,7 +31,7 @@ jobs:
 
           SUCCESS=0
 
-          # ---- EPG SOURCE 1 ----
+          # ---- SOURCE 1 ----
           if curl -fsSL https://example.com/epgshare.xml -o epgshare.xml; then
             echo "✅ Loaded epgshare.xml"
             SUCCESS=$((SUCCESS+1))
@@ -40,7 +40,7 @@ jobs:
             rm -f epgshare.xml
           fi
 
-          # ---- EPG SOURCE 2 ----
+          # ---- SOURCE 2 ----
           if curl -fsSL https://example.com/iptv-org-epg.xml -o iptv-org-epg.xml; then
             echo "✅ Loaded iptv-org-epg.xml"
             SUCCESS=$((SUCCESS+1))
@@ -49,14 +49,14 @@ jobs:
             rm -f iptv-org-epg.xml
           fi
 
-          # ---- FAIL ONLY IF NOTHING WORKED ----
+          # ---- NOTHING LOADED: EXIT CLEANLY ----
           if [ "$SUCCESS" -eq 0 ]; then
-            echo "❌ No EPG sources could be loaded"
-            exit 1
+            echo "🟡 No EPG sources available — nothing to update"
+            exit 0
           fi
 
           # ---- MERGE LOGIC ----
-          # Replace this with your real merge script
+          # Replace with your real merge step
           # Example:
           # python merge_epg.py *.xml > epg.xml
 
